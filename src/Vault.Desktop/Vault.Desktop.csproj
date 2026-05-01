@@ -26,7 +26,7 @@
          only ships in Debug builds for the dev-tools window. Re-enable when
          12.x lands on NuGet:
          <PackageReference Include="Avalonia.Diagnostics" Version="12.0.0" Condition="'$(Configuration)' == 'Debug'" /> -->
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     </ItemGroup>
 
     <ItemGroup>
