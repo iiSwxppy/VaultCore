@@ -37,6 +37,7 @@ public sealed class ClipboardService : IDisposable
         _clearCts?.Cancel();
         _clearCts = CancellationTokenSource.CreateLinkedTokenSource(ct);
         var localCts = _clearCts;
+        var capturedValue = text;
 
         _ = Task.Run(async () =>
         {
@@ -45,8 +46,14 @@ public sealed class ClipboardService : IDisposable
                 await Task.Delay(_autoClearAfter, localCts.Token).ConfigureAwait(false);
                 await Dispatcher.UIThread.InvokeAsync(async () =>
                 {
-                    var current = await clipboard.GetTextAsync();
-                    if (current == _lastWrittenValue)
+                    // Avalonia 12 dropped IClipboard.GetTextAsync — we can't
+                    // read the clipboard back to check if our value is still
+                    // there. Best-effort: only clear if no newer copy has
+                    // been queued since (the cancellation token would have
+                    // fired in that case). If the user copied something
+                    // unrelated in the meantime via another app, we still
+                    // overwrite it; trade-off accepted.
+                    if (_lastWrittenValue == capturedValue)
                     {
                         await clipboard.SetTextAsync(string.Empty);
                         _lastWrittenValue = null;
