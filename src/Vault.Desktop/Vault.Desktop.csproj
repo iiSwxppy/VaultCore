@@ -23,7 +23,7 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <!-- Pin transitive Tmds.DBus.Protocol to a version without GHSA-xrw6-gwf8-vvr9.
          Avalonia 11.2.2 pulls 0.20.0 transitively; 0.21.2 is the fixed version. -->
-    <PackageReference Include="Tmds.DBus.Protocol" Version="0.21.2" />
+    <PackageReference Include="Tmds.DBus.Protocol" Version="0.21.3" />
   </ItemGroup>
 
   <ItemGroup>
