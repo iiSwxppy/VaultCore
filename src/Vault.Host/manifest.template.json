@@ -1,0 +1,9 @@
+{
+  "name": "io.vaultcore.host",
+  "description": "VaultCore native messaging host",
+  "path": "PATH_TO_BINARY",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://EXTENSION_ID_GOES_HERE/"
+  ]
+}

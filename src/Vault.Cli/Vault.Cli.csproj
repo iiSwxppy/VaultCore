@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Vault.Cli</RootNamespace>
+    <AssemblyName>vault</AssemblyName>
+    <!-- AOT off after adding AWSSDK.S3 (reflection-heavy). Use ReadyToRun
+         + self-contained for smallest startup cost. -->
+    <PublishAot>false</PublishAot>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Vault.Core\Vault.Core.csproj" />
+    <ProjectReference Include="..\Vault.Crypto\Vault.Crypto.csproj" />
+    <ProjectReference Include="..\Vault.Sync\Vault.Sync.csproj" />
+  </ItemGroup>
+</Project>

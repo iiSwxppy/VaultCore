@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Vault.Core</RootNamespace>
+    <AssemblyName>Vault.Core</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Vault.Crypto\Vault.Crypto.csproj" />
+  </ItemGroup>
+</Project>

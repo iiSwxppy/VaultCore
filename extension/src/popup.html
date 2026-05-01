@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>VaultCore</title>
+  <style>
+    body {
+      width: 320px;
+      margin: 0;
+      padding: 12px;
+      font: 13px system-ui, sans-serif;
+      background: #1E1E1E;
+      color: #E8E8E8;
+    }
+    h1 {
+      font-size: 14px;
+      margin: 0 0 10px 0;
+      font-weight: 600;
+    }
+    .status {
+      padding: 8px 10px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .status.ok { background: #1B4D2C; color: #B6E3C2; }
+    .status.warn { background: #5C3A11; color: #FFD8A6; }
+    .status.err { background: #5A1F1F; color: #FFB6B6; }
+    .item {
+      padding: 8px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-bottom: 4px;
+    }
+    .item:hover { background: #2A2A2A; }
+    .item-title { font-weight: 600; }
+    .item-sub { color: #999; font-size: 11px; }
+    .empty { color: #888; padding: 10px; text-align: center; }
+    .actions { margin-top: 10px; display: flex; gap: 6px; }
+    button {
+      flex: 1;
+      padding: 6px 10px;
+      background: #2D7AF6;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover { background: #1E5BBF; }
+    button.secondary { background: #3A3A3A; }
+    button.secondary:hover { background: #4A4A4A; }
+  </style>
+</head>
+<body>
+  <h1>VaultCore</h1>
+  <div id="status" class="status warn">Checking...</div>
+  <div id="results"></div>
+  <div class="actions">
+    <button id="refresh" class="secondary">Refresh</button>
+  </div>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

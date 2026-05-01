@@ -1,0 +1,93 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Vault.Desktop.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="540" d:DesignHeight="640"
+        x:Class="Vault.Desktop.Views.SyncConfigWindow"
+        x:DataType="vm:SyncConfigViewModel"
+        Title="Sync remote configuration"
+        Width="540"
+        SizeToContent="Height"
+        MinWidth="460"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        CanResize="False">
+
+    <ScrollViewer>
+        <StackPanel Margin="20" Spacing="14">
+            <TextBlock Text="S3-compatible remote" FontSize="18" FontWeight="Bold" />
+            <TextBlock Opacity="0.65" FontSize="11" TextWrapping="Wrap"
+                       Text="Works with AWS S3, Backblaze B2, MinIO, Cloudflare R2, Wasabi, etc. Use a bucket-scoped IAM policy, not root credentials." />
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Endpoint URL *" />
+                <TextBox Text="{Binding Endpoint, Mode=TwoWay}"
+                         Watermark="https://s3.us-west-002.backblazeb2.com" />
+            </StackPanel>
+
+            <Grid ColumnDefinitions="*,*">
+                <StackPanel Grid.Column="0" Spacing="4" Margin="0,0,5,0">
+                    <TextBlock Text="Region" />
+                    <TextBox Text="{Binding Region, Mode=TwoWay}" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Spacing="4" Margin="5,0,0,0">
+                    <CheckBox Content="Force path style"
+                              IsChecked="{Binding ForcePathStyle, Mode=TwoWay}"
+                              VerticalAlignment="Bottom" Margin="0,0,0,4" />
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Bucket *" />
+                <TextBox Text="{Binding Bucket, Mode=TwoWay}" />
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Object key *" />
+                <TextBox Text="{Binding ObjectKey, Mode=TwoWay}" />
+                <TextBlock Opacity="0.65" FontSize="11"
+                           Text="The file name inside the bucket, e.g. vault.bin" />
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Access key ID *" />
+                <TextBox Text="{Binding AccessKeyId, Mode=TwoWay}"
+                         FontFamily="Cascadia Mono,Consolas,Menlo,monospace" />
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <StackPanel Orientation="Horizontal" Spacing="2">
+                    <TextBlock Text="Secret access key" />
+                    <TextBlock Text="*" IsVisible="{Binding !IsExisting}" />
+                </StackPanel>
+                <TextBox Text="{Binding SecretAccessKey, Mode=TwoWay}"
+                         PasswordChar="●"
+                         FontFamily="Cascadia Mono,Consolas,Menlo,monospace" />
+                <TextBlock Opacity="0.65" FontSize="11" TextWrapping="Wrap"
+                           IsVisible="{Binding IsExisting}"
+                           Text="Leave blank to keep the existing secret. Type a new value to replace." />
+            </StackPanel>
+
+            <Border IsVisible="{Binding ValidationError, Converter={x:Static ObjectConverters.IsNotNull}}"
+                    Background="#33FF6B6B" BorderBrush="#FF6B6B"
+                    BorderThickness="1" Padding="10" CornerRadius="4">
+                <TextBlock Text="{Binding ValidationError}" TextWrapping="Wrap" />
+            </Border>
+
+            <Border IsVisible="{Binding TestResult, Converter={x:Static ObjectConverters.IsNotNull}}"
+                    Background="#332D7AF6" BorderBrush="#2D7AF6"
+                    BorderThickness="1" Padding="10" CornerRadius="4">
+                <TextBlock Text="{Binding TestResult}" TextWrapping="Wrap" FontFamily="Cascadia Mono,Consolas,Menlo,monospace" FontSize="11" />
+            </Border>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+                <Button Content="Test connection"
+                        Command="{Binding TestConnectionCommand}"
+                        IsEnabled="{Binding !IsTesting}" />
+                <Button Content="Cancel" Command="{Binding CancelCommand}" IsCancel="True" />
+                <Button Content="Save" Classes="accent" IsDefault="True" Command="{Binding SaveCommand}" />
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Window>

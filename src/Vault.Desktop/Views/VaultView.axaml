@@ -1,0 +1,152 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Vault.Desktop.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="600"
+             x:Class="Vault.Desktop.Views.VaultView"
+             x:Name="Root"
+             x:DataType="vm:VaultViewModel">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
+
+        <!-- Toolbar -->
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto,Auto,Auto,Auto,Auto" Margin="12,12,12,4">
+            <TextBlock Grid.Column="0" Text="VaultCore"
+                       FontSize="14" FontWeight="SemiBold"
+                       VerticalAlignment="Center" />
+            <Button Grid.Column="1" Content="Sync"
+                    Command="{Binding SyncCommand}" Margin="6,0,0,0" />
+            <Button Grid.Column="2" Content="Sync setup..."
+                    Command="{Binding ConfigureSyncCommand}" Margin="6,0,0,0" />
+            <Button Grid.Column="3" Content="Audit log"
+                    Command="{Binding ShowAuditLogCommand}" Margin="6,0,0,0" />
+            <Button Grid.Column="4" Content="Settings"
+                    Command="{Binding ShowSettingsCommand}" Margin="6,0,0,0" />
+            <Button Grid.Column="5" Content="Lock"
+                    Command="{Binding LockCommand}" Margin="6,0,0,0" />
+        </Grid>
+
+        <!-- Search + add -->
+        <Grid Grid.Row="1" ColumnDefinitions="*,Auto,Auto,Auto" Margin="12,4,12,8">
+            <TextBox Grid.Column="0"
+                     Text="{Binding SearchQuery, Mode=TwoWay}"
+                     Watermark="Search by title, username, or URL..."
+                     VerticalContentAlignment="Center" />
+            <Button Grid.Column="1" Content="Refresh"
+                    Command="{Binding RefreshCommand}"
+                    Margin="6,0,0,0" />
+            <Button Grid.Column="2" Content="Add login"
+                    Classes="accent"
+                    Command="{Binding AddLoginCommand}"
+                    Margin="6,0,0,0" />
+        </Grid>
+
+        <!-- Main content: list left, detail right -->
+        <Grid Grid.Row="2" ColumnDefinitions="320,Auto,*" Margin="12,0,12,0">
+
+            <Border Grid.Column="0"
+                    BorderBrush="#33808080"
+                    BorderThickness="1" CornerRadius="4">
+                <ListBox ItemsSource="{Binding Items}"
+                         SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                         Background="Transparent"
+                         BorderThickness="0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="vm:ItemRowViewModel">
+                            <StackPanel Margin="4,2">
+                                <TextBlock Text="{Binding Title}" FontWeight="SemiBold" />
+                                <TextBlock Text="{Binding Subtitle}"
+                                           Opacity="0.65"
+                                           FontSize="12" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+
+            <GridSplitter Grid.Column="1" Width="6" Background="Transparent" />
+
+            <Border Grid.Column="2"
+                    BorderBrush="#33808080"
+                    BorderThickness="1" CornerRadius="4" Padding="16">
+                <Grid>
+                    <TextBlock Text="Select an item to view details."
+                               Opacity="0.65"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               IsVisible="{Binding Detail, Converter={x:Static ObjectConverters.IsNull}}" />
+
+                    <ScrollViewer IsVisible="{Binding Detail, Converter={x:Static ObjectConverters.IsNotNull}}">
+                        <StackPanel DataContext="{Binding Detail}" Spacing="12">
+                            <Grid ColumnDefinitions="*,Auto,Auto">
+                                <StackPanel Grid.Column="0" Spacing="2">
+                                    <TextBlock Text="{Binding Title}" FontSize="20" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding TypeName}" Opacity="0.65" />
+                                </StackPanel>
+                                <Button Grid.Column="1" Content="Edit"
+                                        Command="{ReflectionBinding #Root.DataContext.EditSelectedCommand}"
+                                        Margin="6,0,0,0" />
+                                <Button Grid.Column="2" Content="Delete"
+                                        Command="{ReflectionBinding #Root.DataContext.DeleteSelectedCommand}"
+                                        Margin="6,0,0,0" />
+                            </Grid>
+
+                            <StackPanel Spacing="8" IsVisible="{Binding IsLogin}">
+                                <StackPanel Spacing="2">
+                                    <TextBlock Text="Username" Opacity="0.65" FontSize="12" />
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBox Grid.Column="0" Text="{Binding Username}" IsReadOnly="True" />
+                                        <Button Grid.Column="1" Content="Copy"
+                                                Command="{Binding CopyUsernameCommand}" Margin="6,0,0,0" />
+                                    </Grid>
+                                </StackPanel>
+
+                                <StackPanel Spacing="2">
+                                    <TextBlock Text="Password" Opacity="0.65" FontSize="12" />
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBox Grid.Column="0" Text="{Binding Password}"
+                                                 PasswordChar="●" IsReadOnly="True" />
+                                        <Button Grid.Column="1" Content="Copy"
+                                                Command="{Binding CopyPasswordCommand}" Margin="6,0,0,0" />
+                                    </Grid>
+                                </StackPanel>
+
+                                <StackPanel Spacing="2" IsVisible="{Binding HasTotp}">
+                                    <TextBlock Text="TOTP" Opacity="0.65" FontSize="12" />
+                                    <Grid ColumnDefinitions="*,Auto,Auto">
+                                        <TextBox Grid.Column="0" Text="{Binding CurrentTotp}" IsReadOnly="True"
+                                                 FontFamily="Cascadia Mono,Consolas,Menlo,monospace" />
+                                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="6,0,0,0"
+                                                   Text="{Binding TotpRemainingSeconds, StringFormat={}{0}s}" />
+                                        <Button Grid.Column="2" Content="Copy"
+                                                Command="{Binding CopyTotpCommand}" Margin="6,0,0,0" />
+                                    </Grid>
+                                </StackPanel>
+
+                                <StackPanel Spacing="2" IsVisible="{Binding HasUrls}">
+                                    <TextBlock Text="URLs" Opacity="0.65" FontSize="12" />
+                                    <ItemsControl ItemsSource="{Binding Urls}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <SelectableTextBlock Text="{Binding}" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <StackPanel Spacing="2" IsVisible="{Binding HasNotes}">
+                                <TextBlock Text="Notes" Opacity="0.65" FontSize="12" />
+                                <SelectableTextBlock Text="{Binding Notes}" TextWrapping="Wrap" />
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="3" Padding="12,6" Background="#33808080">
+            <TextBlock Text="{Binding StatusMessage}" FontSize="12" Opacity="0.65" />
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,77 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Vault.Desktop.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="520" d:DesignHeight="560"
+        x:Class="Vault.Desktop.Views.SettingsWindow"
+        x:DataType="vm:SettingsViewModel"
+        Title="Settings"
+        Width="520"
+        SizeToContent="Height"
+        MinWidth="440"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        CanResize="False">
+
+    <ScrollViewer>
+        <StackPanel Margin="20" Spacing="18">
+            <TextBlock Text="Settings" FontSize="20" FontWeight="Bold" />
+
+            <!-- Auto-lock -->
+            <StackPanel Spacing="6">
+                <TextBlock Text="Auto-lock after (minutes)" FontWeight="SemiBold" />
+                <NumericUpDown Value="{Binding AutoLockMinutes, Mode=TwoWay}"
+                               Minimum="1" Maximum="240" Increment="1" />
+                <TextBlock Opacity="0.65" FontSize="11"
+                           Text="Vault locks after this much inactivity in the app." TextWrapping="Wrap" />
+            </StackPanel>
+
+            <!-- Clipboard -->
+            <StackPanel Spacing="6">
+                <TextBlock Text="Clipboard clear after (seconds)" FontWeight="SemiBold" />
+                <NumericUpDown Value="{Binding ClipboardClearSeconds, Mode=TwoWay}"
+                               Minimum="5" Maximum="600" Increment="5" />
+                <TextBlock Opacity="0.65" FontSize="11"
+                           Text="Copied passwords are cleared from clipboard after this delay (only if not overwritten)."
+                           TextWrapping="Wrap" />
+            </StackPanel>
+
+            <!-- Last vault path -->
+            <StackPanel Spacing="6">
+                <TextBlock Text="Last vault path" FontWeight="SemiBold" />
+                <TextBox Text="{Binding LastVaultPath, Mode=TwoWay}" />
+                <TextBlock Opacity="0.65" FontSize="11"
+                           Text="Pre-filled on the unlock screen." TextWrapping="Wrap" />
+            </StackPanel>
+
+            <Separator />
+
+            <!-- Background sync -->
+            <StackPanel Spacing="6">
+                <TextBlock Text="Background sync" FontWeight="SemiBold" />
+                <CheckBox Content="Enable background sync"
+                          IsChecked="{Binding BackgroundSyncEnabled, Mode=TwoWay}" />
+                <TextBlock Opacity="0.65" FontSize="11" TextWrapping="Wrap"
+                           Text="When enabled, the master password and secret key entered at unlock are kept in process memory for the duration of the session, allowing automatic sync. This is a weaker security posture than the default (credentials only briefly in memory at unlock). Off by default. Effective on next unlock." />
+
+                <TextBlock Text="Interval (minutes)" Margin="0,8,0,0" />
+                <NumericUpDown Value="{Binding BackgroundSyncIntervalMinutes, Mode=TwoWay}"
+                               Minimum="1" Maximum="1440" Increment="1"
+                               IsEnabled="{Binding BackgroundSyncEnabled}" />
+                <TextBlock Opacity="0.65" FontSize="11" TextWrapping="Wrap"
+                           Text="Plus an immediate sync 30 seconds after any local vault file change." />
+
+                <TextBlock Margin="0,8,0,0">
+                    <Run Text="Last attempt:" Foreground="#999" />
+                    <Run Text="{Binding LastBackgroundSyncStatus}" />
+                </TextBlock>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" Margin="0,8,0,0">
+                <Button Content="Cancel" Command="{Binding CancelCommand}" IsCancel="True" />
+                <Button Content="Save" Classes="accent" IsDefault="True" Command="{Binding SaveCommand}" />
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Window>

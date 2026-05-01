@@ -1,0 +1,51 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Vault.Desktop.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="440" d:DesignHeight="320"
+        x:Class="Vault.Desktop.Views.SyncPromptWindow"
+        x:DataType="vm:SyncPromptViewModel"
+        Title="Sync — re-enter credentials"
+        Width="440"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        CanResize="False">
+
+    <StackPanel Margin="20" Spacing="14">
+        <TextBlock FontSize="16" FontWeight="SemiBold" Text="Sync requires credentials" />
+        <TextBlock Opacity="0.7" TextWrapping="Wrap"
+                   Text="If the remote vault has diverged from local, we need to decrypt it with the same master password and secret key. They are not stored." />
+
+        <StackPanel Spacing="4">
+            <TextBlock Text="Master password" />
+            <TextBox Text="{Binding Password, Mode=TwoWay}"
+                     PasswordChar="●">
+                <TextBox.KeyBindings>
+                    <KeyBinding Gesture="Enter" Command="{Binding ConfirmCommand}" />
+                </TextBox.KeyBindings>
+            </TextBox>
+        </StackPanel>
+
+        <StackPanel Spacing="4">
+            <TextBlock Text="Secret key" />
+            <TextBox Text="{Binding SecretKey, Mode=TwoWay}"
+                     FontFamily="Cascadia Mono,Consolas,Menlo,monospace"
+                     Watermark="A1-XXXXXX-XXXXXX-XXXXXX-XXXXXX-XXXXXX-XXXXXX">
+                <TextBox.KeyBindings>
+                    <KeyBinding Gesture="Enter" Command="{Binding ConfirmCommand}" />
+                </TextBox.KeyBindings>
+            </TextBox>
+        </StackPanel>
+
+        <TextBlock Text="{Binding StatusMessage}"
+                   IsVisible="{Binding StatusMessage, Converter={x:Static ObjectConverters.IsNotNull}}"
+                   Foreground="#FF6B6B" TextWrapping="Wrap" />
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+            <Button Content="Cancel" Command="{Binding CancelCommand}" IsCancel="True" />
+            <Button Content="Sync" Classes="accent" IsDefault="True" Command="{Binding ConfirmCommand}" />
+        </StackPanel>
+    </StackPanel>
+</Window>

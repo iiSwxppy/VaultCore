@@ -1,0 +1,119 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Vault.Desktop.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
+             x:Class="Vault.Desktop.Views.UnlockView"
+             x:DataType="vm:UnlockViewModel">
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center"
+          Width="440" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+          ColumnDefinitions="*,Auto">
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
+                   Text="VaultCore"
+                   FontSize="24" FontWeight="Bold"
+                   Margin="0,0,0,4" />
+
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2"
+                   Text="Unlock or create a vault"
+                   Opacity="0.65"
+                   Margin="0,0,0,20" />
+
+        <TextBlock Grid.Row="2" Grid.Column="0"
+                   Text="Vault file path"
+                   Margin="0,0,0,4" />
+        <Grid Grid.Row="3" Grid.ColumnSpan="2"
+              ColumnDefinitions="*,Auto" Margin="0,0,0,12">
+            <TextBox Grid.Column="0" Text="{Binding VaultPath, Mode=TwoWay}"
+                     Watermark="C:\path\to\my.vault"
+                     IsEnabled="{Binding !IsBusy}" />
+            <Button Grid.Column="1" Content="Browse..." Margin="6,0,0,0"
+                    Click="OnBrowseClicked"
+                    IsEnabled="{Binding !IsBusy}" />
+        </Grid>
+
+        <TextBlock Grid.Row="4" Grid.ColumnSpan="2"
+                   Text="Master password"
+                   Margin="0,0,0,4" />
+        <TextBox Grid.Row="5" Grid.ColumnSpan="2"
+                 Text="{Binding Password, Mode=TwoWay}"
+                 PasswordChar="●"
+                 RevealPassword="False"
+                 IsEnabled="{Binding !IsBusy}"
+                 Margin="0,0,0,12">
+            <TextBox.KeyBindings>
+                <KeyBinding Gesture="Enter" Command="{Binding UnlockCommand}" />
+            </TextBox.KeyBindings>
+        </TextBox>
+
+        <TextBlock Grid.Row="6" Grid.ColumnSpan="2"
+                   Text="Secret Key"
+                   Margin="0,0,0,4" />
+        <TextBox Grid.Row="7" Grid.ColumnSpan="2"
+                 Text="{Binding SecretKey, Mode=TwoWay}"
+                 Watermark="A1-XXXXXX-XXXXXX-XXXXXX-XXXXXX-XXXXXX-XXXXXX"
+                 FontFamily="Cascadia Mono,Consolas,Menlo,monospace"
+                 IsEnabled="{Binding !IsBusy}"
+                 Margin="0,0,0,16">
+            <TextBox.KeyBindings>
+                <KeyBinding Gesture="Enter" Command="{Binding UnlockCommand}" />
+            </TextBox.KeyBindings>
+        </TextBox>
+
+        <StackPanel Grid.Row="8" Grid.ColumnSpan="2"
+                    Orientation="Horizontal" HorizontalAlignment="Right"
+                    Spacing="8">
+            <Button Content="Create new vault"
+                    Command="{Binding CreateVaultCommand}"
+                    IsEnabled="{Binding !IsBusy}" />
+            <Button Content="Unlock"
+                    Classes="accent"
+                    Command="{Binding UnlockCommand}"
+                    IsDefault="True"
+                    IsEnabled="{Binding !IsBusy}" />
+        </StackPanel>
+
+        <TextBlock Grid.Row="9" Grid.ColumnSpan="2"
+                   Text="{Binding StatusMessage}"
+                   IsVisible="{Binding StatusMessage, Converter={x:Static ObjectConverters.IsNotNull}}"
+                   TextWrapping="Wrap"
+                   Margin="0,12,0,0"
+                   Opacity="0.85" />
+
+        <Border Grid.Row="9" Grid.ColumnSpan="2"
+                IsVisible="{Binding IsLockedOut}"
+                Background="#33FF6B6B"
+                BorderBrush="#FF6B6B"
+                BorderThickness="1"
+                Padding="10"
+                CornerRadius="4"
+                Margin="0,12,0,0">
+            <TextBlock Text="{Binding LockoutMessage}" TextWrapping="Wrap" />
+        </Border>
+
+        <Border Grid.Row="9" Grid.ColumnSpan="2"
+                IsVisible="{Binding NewSecretKeyToShow, Converter={x:Static ObjectConverters.IsNotNull}}"
+                Background="#33FFC107"
+                BorderBrush="#FFC107"
+                BorderThickness="1"
+                Padding="14"
+                CornerRadius="4"
+                Margin="0,12,0,0">
+            <StackPanel Spacing="8">
+                <TextBlock Text="WRITE THIS DOWN" FontWeight="Bold" />
+                <TextBlock Text="Without your Secret Key AND master password, the vault cannot be unlocked. No one can recover it."
+                           TextWrapping="Wrap" />
+                <SelectableTextBlock Text="{Binding NewSecretKeyToShow}"
+                                     FontFamily="Cascadia Mono,Consolas,Menlo,monospace"
+                                     FontSize="14"
+                                     Padding="6"
+                                     Background="#33808080" />
+                <Button Content="I have written it down"
+                        Command="{Binding DismissNewSecretKeyCommand}"
+                        HorizontalAlignment="Right" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

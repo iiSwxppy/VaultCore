@@ -1,0 +1,32 @@
+name: Feature request
+description: Propose a feature.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the use case before proposing a solution.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      description: VaultCore is a personal-use password manager. See CONTRIBUTING.md for what's in scope.
+      options:
+        - label: I've read CONTRIBUTING.md and this fits the project's scope.
+          required: true

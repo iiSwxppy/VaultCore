@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Vault.Sync</RootNamespace>
+    <AssemblyName>Vault.Sync</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.S3" Version="3.7.413" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Vault.Core\Vault.Core.csproj" />
+    <ProjectReference Include="..\Vault.Crypto\Vault.Crypto.csproj" />
+  </ItemGroup>
+</Project>

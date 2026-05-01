@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Vault.Ipc</RootNamespace>
+    <AssemblyName>Vault.Ipc</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="public_suffix_list.dat" />
+  </ItemGroup>
+</Project>

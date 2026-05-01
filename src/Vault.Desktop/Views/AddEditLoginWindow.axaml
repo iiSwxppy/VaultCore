@@ -1,0 +1,107 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Vault.Desktop.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="560" d:DesignHeight="640"
+        x:Class="Vault.Desktop.Views.AddEditLoginWindow"
+        x:DataType="vm:AddEditLoginViewModel"
+        Title="{Binding IsEdit, Converter={x:Static vm:EditOrAddConverter.Instance}, StringFormat='{}{0} login'}"
+        Width="560" Height="640"
+        MinWidth="480" MinHeight="540"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        CanResize="True">
+
+    <ScrollViewer>
+        <StackPanel Margin="20" Spacing="14">
+
+            <TextBlock FontSize="20" FontWeight="Bold"
+                       Text="{Binding IsEdit, Converter={x:Static vm:EditOrAddConverter.Instance}, StringFormat='{}{0} login'}" />
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Title *" />
+                <TextBox Text="{Binding Title, Mode=TwoWay}"
+                         Watermark="e.g. GitHub"
+                         AcceptsReturn="False" />
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Username" />
+                <TextBox Text="{Binding Username, Mode=TwoWay}" />
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Password" />
+                <Grid ColumnDefinitions="*,Auto,Auto">
+                    <TextBox Grid.Column="0"
+                             Text="{Binding Password, Mode=TwoWay}"
+                             PasswordChar="●"
+                             RevealPassword="{Binding PasswordRevealed}" />
+                    <Button Grid.Column="1" Content="👁"
+                            Command="{Binding TogglePasswordRevealedCommand}"
+                            Margin="6,0,0,0"
+                            ToolTip.Tip="Show / hide password" />
+                    <Button Grid.Column="2" Content="Generate"
+                            Command="{Binding GeneratePasswordCommand}"
+                            Margin="6,0,0,0" />
+                </Grid>
+
+                <Expander Header="Generator options" Margin="0,4,0,0">
+                    <Grid Margin="0,8,0,0" ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto,Auto">
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Length"
+                                   VerticalAlignment="Center" Margin="0,0,10,8" />
+                        <Slider Grid.Row="0" Grid.Column="1"
+                                Minimum="8" Maximum="64"
+                                Value="{Binding GeneratorLength, Mode=TwoWay}"
+                                TickFrequency="4" IsSnapToTickEnabled="True"
+                                Margin="0,0,10,8" />
+                        <TextBlock Grid.Row="0" Grid.Column="2"
+                                   Text="{Binding GeneratorLength}" VerticalAlignment="Center"
+                                   Margin="0,0,0,8" />
+
+                        <CheckBox Grid.Row="1" Grid.ColumnSpan="3"
+                                  Content="Include symbols (!@#$...)"
+                                  IsChecked="{Binding GeneratorIncludeSymbols, Mode=TwoWay}"
+                                  Margin="0,0,0,8" />
+                        <CheckBox Grid.Row="2" Grid.ColumnSpan="3"
+                                  Content="Exclude ambiguous (0/O/1/l/I)"
+                                  IsChecked="{Binding GeneratorExcludeAmbiguous, Mode=TwoWay}" />
+                    </Grid>
+                </Expander>
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="URL" />
+                <TextBox Text="{Binding Url, Mode=TwoWay}"
+                         Watermark="https://example.com" />
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="TOTP secret (Base32)" />
+                <TextBox Text="{Binding TotpSecret, Mode=TwoWay}"
+                         Watermark="JBSWY3DPEHPK3PXP"
+                         FontFamily="Cascadia Mono,Consolas,Menlo,monospace" />
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Notes" />
+                <TextBox Text="{Binding Notes, Mode=TwoWay}"
+                         AcceptsReturn="True"
+                         Height="80"
+                         TextWrapping="Wrap" />
+            </StackPanel>
+
+            <Border IsVisible="{Binding ValidationError, Converter={x:Static ObjectConverters.IsNotNull}}"
+                    Background="#33FF6B6B" BorderBrush="#FF6B6B"
+                    BorderThickness="1" Padding="10" CornerRadius="4">
+                <TextBlock Text="{Binding ValidationError}" TextWrapping="Wrap" />
+            </Border>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" Margin="0,8,0,0">
+                <Button Content="Cancel" Command="{Binding CancelCommand}" />
+                <Button Content="Save" Classes="accent" IsDefault="True" Command="{Binding SaveCommand}" />
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Window>

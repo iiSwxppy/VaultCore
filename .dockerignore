@@ -1,0 +1,37 @@
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Build outputs (we'll re-build inside the container)
+**/bin/
+**/obj/
+**/publish/
+**/*.dll
+**/*.pdb
+**/*.exe
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# Frontend (not needed for CLI image)
+extension/
+**/node_modules/
+
+# Docs and meta
+*.md
+LICENSE
+.github/
+
+# Test artifacts
+TestResults/
+coverage/
+
+# Local development
+*.vault
+*.vault.sync
+*.vault.tmp

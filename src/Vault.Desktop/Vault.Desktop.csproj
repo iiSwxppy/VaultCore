@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Vault.Desktop</RootNamespace>
+    <AssemblyName>VaultDesktop</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <UseAppHost>true</UseAppHost>
+    <PublishAot>false</PublishAot>
+    <!-- Avalonia + MVVM source generators emit nullability/doc warnings we don't control.
+         Override the inherited TreatWarningsAsErrors=true. -->
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);CS1591;CS8618;NU1701;NU1903</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.2.2" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.2.2" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.2" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.2" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.2.2" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="11.2.2" Condition="'$(Configuration)' == 'Debug'" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <!-- Pin transitive Tmds.DBus.Protocol to a version without GHSA-xrw6-gwf8-vvr9.
+         Avalonia 11.2.2 pulls 0.20.0 transitively; 0.21.2 is the fixed version. -->
+    <PackageReference Include="Tmds.DBus.Protocol" Version="0.21.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Vault.Core\Vault.Core.csproj" />
+    <ProjectReference Include="..\Vault.Crypto\Vault.Crypto.csproj" />
+    <ProjectReference Include="..\Vault.Ipc\Vault.Ipc.csproj" />
+    <ProjectReference Include="..\Vault.Sync\Vault.Sync.csproj" />
+  </ItemGroup>
+</Project>

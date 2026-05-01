@@ -1,0 +1,76 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vault.Crypto", "src\Vault.Crypto\Vault.Crypto.csproj", "{A1A1A1A1-0001-0001-0001-000000000001}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vault.Core", "src\Vault.Core\Vault.Core.csproj", "{A1A1A1A1-0001-0001-0001-000000000002}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vault.Cli", "src\Vault.Cli\Vault.Cli.csproj", "{A1A1A1A1-0001-0001-0001-000000000003}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vault.Crypto.Tests", "tests\Vault.Crypto.Tests\Vault.Crypto.Tests.csproj", "{A1A1A1A1-0001-0001-0001-000000000004}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vault.Core.Tests", "tests\Vault.Core.Tests\Vault.Core.Tests.csproj", "{A1A1A1A1-0001-0001-0001-000000000005}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vault.Desktop", "src\Vault.Desktop\Vault.Desktop.csproj", "{A1A1A1A1-0001-0001-0001-000000000006}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vault.Ipc", "src\Vault.Ipc\Vault.Ipc.csproj", "{A1A1A1A1-0001-0001-0001-000000000007}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vault.Host", "src\Vault.Host\Vault.Host.csproj", "{A1A1A1A1-0001-0001-0001-000000000008}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vault.Ipc.Tests", "tests\Vault.Ipc.Tests\Vault.Ipc.Tests.csproj", "{A1A1A1A1-0001-0001-0001-000000000009}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vault.Sync", "src\Vault.Sync\Vault.Sync.csproj", "{A1A1A1A1-0001-0001-0001-00000000000A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vault.Sync.Tests", "tests\Vault.Sync.Tests\Vault.Sync.Tests.csproj", "{A1A1A1A1-0001-0001-0001-00000000000B}"
+EndProject
+Global
+    GlobalSection(SolutionConfigurationPlatforms) = preSolution
+        Debug|Any CPU = Debug|Any CPU
+        Release|Any CPU = Release|Any CPU
+    EndGlobalSection
+    GlobalSection(ProjectConfigurationPlatforms) = postSolution
+        {A1A1A1A1-0001-0001-0001-000000000001}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000001}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000001}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000001}.Release|Any CPU.Build.0 = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000002}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000002}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000002}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000002}.Release|Any CPU.Build.0 = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000003}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000003}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000003}.Release|Any CPU.Build.0 = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000004}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000004}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000004}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000004}.Release|Any CPU.Build.0 = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000005}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000005}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000005}.Release|Any CPU.Build.0 = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000006}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000006}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000006}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000006}.Release|Any CPU.Build.0 = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000007}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000007}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000007}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000007}.Release|Any CPU.Build.0 = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000008}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000008}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000008}.Release|Any CPU.Build.0 = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000009}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000009}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-000000000009}.Release|Any CPU.Build.0 = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-00000000000A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-00000000000A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-00000000000A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-00000000000A}.Release|Any CPU.Build.0 = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-00000000000B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-00000000000B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {A1A1A1A1-0001-0001-0001-00000000000B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {A1A1A1A1-0001-0001-0001-00000000000B}.Release|Any CPU.Build.0 = Release|Any CPU
+    EndGlobalSection
+EndGlobal

@@ -1,0 +1,38 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Vault.Desktop.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="420" d:DesignHeight="200"
+        x:Class="Vault.Desktop.Views.ConfirmDialog"
+        x:DataType="vm:ConfirmDialogViewModel"
+        Title="{Binding Title}"
+        Width="420"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        CanResize="False">
+
+    <Window.Styles>
+        <Style Selector="Button.danger">
+            <Setter Property="Background" Value="#E83D3D" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <Style Selector="Button.danger:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#FF5252" />
+        </Style>
+    </Window.Styles>
+
+    <StackPanel Margin="20" Spacing="16">
+        <TextBlock Text="{Binding Message}" TextWrapping="Wrap" />
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+            <Button Content="{Binding CancelLabel}" Command="{Binding CancelCommand}" IsCancel="True" />
+            <Button Content="{Binding ConfirmLabel}"
+                    Command="{Binding ConfirmCommand}"
+                    IsDefault="True"
+                    Classes.accent="{Binding !IsDestructive}"
+                    Classes.danger="{Binding IsDestructive}" />
+        </StackPanel>
+    </StackPanel>
+</Window>

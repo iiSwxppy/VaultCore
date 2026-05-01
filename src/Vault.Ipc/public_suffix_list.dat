@@ -1,0 +1,37 @@
+// Placeholder for the Public Suffix List.
+// Replace this file with the contents of:
+//   https://publicsuffix.org/list/public_suffix_list.dat
+// before shipping. The build still works without it (falls back to a small
+// built-in TLD list), but matching for *.co.uk-style hostnames will be wrong
+// until the full PSL is embedded.
+//
+// Format: one rule per line, "//" prefix = comment, "*" = wildcard, "!" = exception.
+
+com
+net
+org
+io
+co
+co.uk
+gov
+edu
+de
+ro
+fr
+it
+es
+nl
+pl
+ru
+jp
+cn
+br
+in
+au
+com.au
+ca
+us
+mx
+ai
+app
+dev
