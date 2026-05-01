@@ -17,10 +17,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="12.0.0" />
-        <PackageReference Include="Avalonia.Desktop" Version="12.0.0" />
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.0" />
-        <PackageReference Include="Avalonia.Fonts.Inter" Version="12.0.0" />
+        <PackageReference Include="Avalonia" Version="12.0.2" />
+        <PackageReference Include="Avalonia.Desktop" Version="12.0.2" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.2" />
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="12.0.2" />
         <PackageReference Include="Avalonia.Controls.DataGrid" Version="12.0.0" />
         <!-- Avalonia.Diagnostics doesn't have a 12.x release as of writing; it
          only ships in Debug builds for the dev-tools window. Re-enable when
